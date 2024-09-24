@@ -44,6 +44,12 @@ class IsoStudyApp(QtWidgets.QWidget):
         super().__init__()
         self.init_ui()
 
+        try:
+            with open('IsoStyleSheet.css', 'r') as stylesheet:
+                self.setStyleSheet(stylesheet.read())
+        except FileNotFoundError:
+            print("Stylesheet file not found. Proceeding without custom styles.")
+
     def init_ui(self):
         """Initializes the UI components."""
         self.setWindowTitle("Iso-Study Setup")
@@ -172,10 +178,19 @@ class TaskReminder(QtWidgets.QWidget):
         self.minutes = minutes
         self.seconds = seconds
         self.init_ui()
+
+        try:
+            with open('IsoStyleSheet.css', 'r') as stylesheet:
+                self.setStyleSheet(stylesheet.read())
+        except FileNotFoundError:
+            print("Stylesheet file not found. Proceeding without custom styles.")
+
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_countdown)
         self.start_countdown()
         self.zen_mode = False 
+
+        
 
     def init_ui(self):
         """Initializes the UI components."""
@@ -215,11 +230,26 @@ class TaskReminder(QtWidgets.QWidget):
                 checkbox.setVisible(False)
             self.task_label.setVisible(False)
             self.resize(300, 150)
+
+            screen = QtWidgets.QDesktopWidget().screenGeometry()
+            window_width = self.frameGeometry().width()
+            window_height = self.frameGeometry().height()
+            x = screen.width() - window_width - 10
+            y = screen.height() - window_height - 50
+            self.move(x, y)
+
+            self.zen_mode_button.setStyleSheet("background-color: #FFB347; color: white;")
         else:
             for checkbox in self.task_checkboxes:
                 checkbox.setVisible(True)
             self.task_label.setVisible(True)
             self.resize(400, 300)
+
+            self.move(300, 100)
+
+            self.zen_mode_button.setStyleSheet("background-color: #4CAF50; color: white;") 
+
+
 
     def update_countdown(self):
         if self.seconds > 0:
