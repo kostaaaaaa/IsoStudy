@@ -8,6 +8,7 @@ Allow users to isolate their environments to focus on their school goals or pers
 - Adjustable time limit, silenced apps and task list
 - Time remaining displayed with task list
 - Zen-mode that can toggle the view of the task list while maintaining the time remaining
+- Zen-mode moves to the bottom right corner of your screen to ensure minimum distractions to your full desktop
 - Maintains silenced apps listed by the user to stay closed
 
 ## Notes
